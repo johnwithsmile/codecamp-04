@@ -18,3 +18,21 @@ export default function LayoutNavigationUI(props: ILayoutNavigationUIProps) {
     </Wrapper>
   );
 }
+
+// export default function LayoutNavigationUI(props: ILayoutNavigationUIProps) {
+//   return (
+//     <Wrapper>
+//       <MenuItem id="/boards" onClick={props.onClickMenu("/boards")}>
+//         포인핸드 게시판
+//       </MenuItem>
+//       <>|</>
+//       <MenuItem id="/markets" onClick={props.onClickMenu("/markets")}>
+//         포인핸드 몰
+//       </MenuItem>
+//       <>|</>
+//       <MenuItem  onClick={props.onClickMenu("/mypages")}>
+//         마이페이지
+//       </MenuItem>
+//     </Wrapper>
+//   );
+// }

@@ -10,3 +10,12 @@ export default function Navigation() {
   }
   return <NavigationUI onClickMenu={onClickMenu} />;
 }
+
+// export default function Navigation() {
+//   const router = useRouter();
+
+//   const onClickMenu => (aaa) (event: MouseEvent<HTMLDivElement>) => {
+//     if(event.target instanceof Element) routerpush(aaa));
+//   }
+//   return <NavigationUI onClickMenu={onClickMenu} />;
+// }

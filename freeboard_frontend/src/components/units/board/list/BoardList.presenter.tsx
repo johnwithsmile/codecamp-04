@@ -3,7 +3,7 @@ import Paginations01 from "../../../commons/paginations/01/Paginations01.contain
 import { IBoardListUIProps } from "./BoardList.types";
 import { withAuth } from "../../../commons/hocs/withAuth";
 
-export default function BoardListUi(props: IBoardListUIProps){
+function BoardListUi(props: IBoardListUIProps){
   return (
     <S.MyWrapper>
       <S.Title>베스트 게시글</S.Title>
@@ -65,6 +65,6 @@ export default function BoardListUi(props: IBoardListUIProps){
   );
 };
 
-
+export default withAuth(BoardListUi);
 
 

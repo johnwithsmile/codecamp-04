@@ -12,9 +12,7 @@ const FETCH_USER_LOGGED_IN = gql`
 `;
 
 interface IProps {
-  onClickLogo: () => void;
-  onClickMoveToLogin: () => void;
-  
+  onClickMove: () => void;
 }
 
 export default function HeaderUI(props: IProps) {
@@ -23,14 +21,22 @@ export default function HeaderUI(props: IProps) {
   return (
     <Wrapper>
       <InnerWrapper>
-        <InnerLogo onClick={props.onClickLogo}> 🤝 Pawinhand</InnerLogo>
+        <InnerLogo id="/boards" onClick={props.onClickMove}>
+          {" "}
+          🤝 Pawinhand
+        </InnerLogo>
         <div>
-          <InnerButton>환영합니다, {data?.fetchUserLoggedIn.name}님 </InnerButton>
-          <InnerButton id="/login"onClick={props.onClickMoveToLogin}>로그인</InnerButton>
-          <InnerButton id="/signup">회원가입</InnerButton>
+          <InnerButton id="/mypage">
+            환영합니다, {data?.fetchUserLoggedIn.name}님{" "}
+          </InnerButton>
+          <InnerButton id="/login" onClick={props.onClickMove}>
+            로그인
+          </InnerButton>
+          <InnerButton id="/signup" onClick={props.onClickMove}>
+            회원가입
+          </InnerButton>
         </div>
       </InnerWrapper>
     </Wrapper>
   );
 }
-

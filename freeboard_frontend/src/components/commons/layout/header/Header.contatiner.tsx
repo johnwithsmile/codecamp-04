@@ -3,18 +3,9 @@ import HeaderUI from "./Header.presenter";
 export default function Header() {
   const router = useRouter();
 
-  function onClickLogo() {
-    router.push("/boards");
+  function onClickMove(event) {
+    router.push(event.target.id);
   }
 
-  function onClickMoveToLogin() {
-    router.push("/login");
-  }
-
-  return (
-    <HeaderUI
-      onClickLogo={onClickLogo}
-      onClickMoveToLogin={onClickMoveToLogin}
-    />
-  );
+  return <HeaderUI onClickMove={onClickMove} />;
 }

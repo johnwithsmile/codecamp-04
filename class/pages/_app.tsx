@@ -11,8 +11,23 @@ import { globalStyles } from "../src/commons/styles/globalStyles";
 import Layout from "../src/components/commons/layout";
 import { createUploadLink } from "apollo-upload-client";
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+
+interface IGlobalContext {
+  accessToken?: String;
+  setAccessToken?: Dispatch<SetStateAction<string>>;
+  userInfo?: {
+    name?: string;
+    email?: string;
+    picture?: string;
+  };
+}
 
 export const GlobalContext = createContext<IGlobalContext>({});
 function MyApp({ Component, pageProps }: AppProps) {
@@ -21,13 +36,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const myvalue = {
     accessToken: myAcessToken,
     setAccessToken: setMyAccessToken,
-    // userInfo: myuserInfo,
-    // setUserInfo: setMyUserInfo,
+    userInfo: myuserInfo,
+    setUserInfo: setMyUserInfo,
   };
-useEffect(() => {
-  const accessToken = localStorage.getItem("accessToken")
-  if(accessToken) setMyAccessToken(accessToken)
-}, [])  
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) setMyAccessToken(accessToken);
+  }, []);
   const uploadLink = createUploadLink({
     uri: "http://backend04.codebootcamp.co.kr/graphql",
     headers: { authorization: `Bearer ${myAcessToken}` },
