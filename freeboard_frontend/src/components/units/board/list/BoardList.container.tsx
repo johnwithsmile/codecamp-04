@@ -1,60 +1,52 @@
+import BoardListUI from "./BoardList.presenter";
 import { useQuery } from "@apollo/client";
-import { useState, MouseEvent } from "react";
-import BoardListUi from "./BoardList.presenter";
+import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
+import { useRouter } from "next/router";
+import { MouseEvent, useState } from "react";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
   IQueryFetchBoardsCountArgs,
 } from "../../../../commons/types/generated/types";
-import {
-  FETCH_BOARDS,
-  FETCH_BESTS,
-  FETCH_BOARDS_COUNT,
-} from "./BoardList.queries";
-import { useRouter } from "next/router";
-// import {IEerror} from './BoardList.types'
 
-export default function BoardListWrite() {
+export default function BoardList() {
   const router = useRouter();
-  const [startPage, SetstartPage] = useState(1);
-
-  function onClickMoveToBoardDetail(event: MouseEvent<HTMLDivElement>) {
-    router.push(`/boards/${event.target.id}`);
-  }
+  const [startPage, setStartPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardsArgs
+  >(FETCH_BOARDS, { variables: { page: startPage } });
+  const { data: dataBoardsCount, refetch: refetchBoardsCount } =
+    useQuery<Pick<IQuery, "fetchBoardsCount">, IQueryFetchBoardsCountArgs>(
+      FETCH_BOARDS_COUNT
+    );
 
   function onClickMoveToBoardNew() {
     router.push("/boards/new");
   }
 
-  const { data: data1, refetch } = useQuery<
-    Pick<IQuery, "fetchBoards">,
-    IQueryFetchBoardsArgs
-  >(FETCH_BOARDS, { variables: { page: startPage } });
+  function onClickMoveToBoardDetail(event: MouseEvent<HTMLDivElement>) {
+    if (event.target instanceof Element)
+      router.push(`/boards/${event.target.id}`);
+  }
 
-  const { data: data2 } = useQuery(FETCH_BESTS);
-  const { data: data3 } = useQuery<
-    Pick<IQuery, "fetchBoards">,
-    IQueryFetchBoardsArgs
-  >(FETCH_BOARDS_COUNT, {
-    variables: { page: startPage },
-  });
-  const { data: dataBoardsCount } =
-    useQuery<Pick<IQuery, "fetchBoardsCount">>(FETCH_BOARDS_COUNT);
-  const lastPage = dataBoardsCount
-    ? Math.ceil(dataBoardsCount.fetchBoardsCount / 10)
-    : 0;
+  function onChangeKeyword(value: string) {
+    setKeyword(value);
+  }
 
   return (
-    <BoardListUi
-      data1={data1}
-      data2={data2}
-      data3={data3}
-      onClickMoveToBoardDetail={onClickMoveToBoardDetail}
+    <BoardListUI
+      data={data}
       onClickMoveToBoardNew={onClickMoveToBoardNew}
-      count={dataBoardsCount?.fetchBoardsCount}
+      onClickMoveToBoardDetail={onClickMoveToBoardDetail}
       refetch={refetch}
-      lastPage={lastPage}
+      refetchBoardsCount={refetchBoardsCount}
+      count={dataBoardsCount?.fetchBoardsCount}
       startPage={startPage}
+      setStartPage={setStartPage}
+      keyword={keyword}
+      onChangeKeyword={onChangeKeyword}
     />
   );
 }

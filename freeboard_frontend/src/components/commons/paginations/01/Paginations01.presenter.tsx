@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { MouseEvent } from "react";
 import { Page } from "./Paginations01.styles";
 import { IPaginations01UIProps } from "./Paginations01.types";
 
 export default function Paginations01UI(props: IPaginations01UIProps) {
   return (
     <div>
-      <Page onClick={props.onClickPrevPage}>{`< 이전 페이지`}</Page>
+      <Page onClick={props.onClickPrevPage}>{`<`}</Page>
       {new Array(10).fill(1).map(
         (_, index) =>
           props.startPage + index <= props.lastPage && (
@@ -19,7 +19,7 @@ export default function Paginations01UI(props: IPaginations01UIProps) {
             </Page>
           )
       )}
-      <Page onClick={props.onClickNextPage}>{`다음 페이지 >`}</Page>
+      <Page onClick={props.onClickNextPage}>{`>`}</Page>
     </div>
   );
 }

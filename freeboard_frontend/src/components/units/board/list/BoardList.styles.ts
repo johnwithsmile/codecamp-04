@@ -1,69 +1,59 @@
 import styled from "@emotion/styled";
+import { ITextTokenProps } from "./BoardList.types";
 
-export const MyWrapper = styled.div`
-  width: 1200px;
-  border: 1px solid black;
-  margin: 100px;
-  padding-top: 80px;
-  padding-bottom: 100px;
-  padding-left: 102px;
-  padding-right: 102px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: none;
-  box-shadow: 0px 0px 10px gray;
-`;
-export const Title = styled.div`
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 36px;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom: 3px solid black;
-`;
-
-export const Column = styled.div`
-  width: 60%;
-`;
 export const Wrapper = styled.div`
-  width: 100%;
-`;
-export const WriterWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 40px;
-`;
-export const Label = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 40px;
+  width: 1200px;
+  margin: 100px;
 `;
 
-export const InputWrapper = styled.div`
-  width: 100%;
+export const TableTop = styled.div`
+  border-top: 2px solid gray;
+  margin-top: 20px;
+`;
+
+export const TableBottom = styled.div`
+  border-bottom: 2px solid gray;
+`;
+
+export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding-top: 40px;
+  height: 52px;
+  line-height: 52px;
+  border-bottom: 1px solid gray;
+
+  :hover {
+    color: blue;
+  }
 `;
 
-export const BottomWrapper = styled.div`
-  width: 100%;
-`;
-export const TopWrapper = styled.div`
-  width: 100%;
-  padding-bottom: 30px;
+export const TextToken = styled.span`
+  color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
 `;
 
-export const Pagenation = styled.div`
-  display: flex;
-  justify-content: center;
+export const ColumnHeaderBasic = styled.div`
+  width: 10%;
+  text-align: center;
+`;
+
+export const ColumnHeaderTitle = styled.div`
+  width: 70%;
+  text-align: center;
+`;
+
+export const ColumnBasic = styled.div`
+  width: 10%;
+  text-align: center;
+`;
+
+export const ColumnTitle = styled.div`
+  width: 70%;
+  text-align: center;
+  cursor: pointer;
+
+  :hover {
+    color: blue;
+  }
 `;
 
 export const Footer = styled.div`

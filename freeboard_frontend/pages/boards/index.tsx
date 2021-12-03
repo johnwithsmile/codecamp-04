@@ -1,8 +1,5 @@
-import BoardListWrite from "../../src/components/units/board/list/BoardList.container";
-import { withAuth } from '../../src/components/commons/hocs/withAuth'
+import BoardList from "../../src/components/units/board/list/BoardList.container";
 
-const BoardListWritePage= () =>{
-  return <BoardListWrite />;
+export default function BoardsPage() {
+  return <BoardList />;
 }
-
-export default withAuth(BoardListWritePage);
