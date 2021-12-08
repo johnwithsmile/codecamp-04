@@ -1,5 +1,13 @@
-import Myform from "../../src/components/units/24-06-react-hook-form/MyForm.container";
+import UsedItemDetail from "../../../src/components/units/useditem/detail/UsedItemDetail.container";
+// import BoardCommentList from "../../../src/components/units/boardComment/list/BoardCommentList.container";
+// import BoardCommentWrite from "../../../src/components/units/boardComment/write/BoardCommentWrite.container";
 
-export default function ReactHookFromPage() {
-  return <Myform />;
+export default function UsedItemDetailPage() {
+  return (
+    <>
+      <UsedItemDetail />
+      {/* <BoardCommentWrite />
+      <BoardCommentList /> */}
+    </>
+  );
 }

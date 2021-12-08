@@ -1,5 +1,8 @@
 export interface FormValues {
-  myEmail: string;
-  myPassword: string;
-  
+  myname: string;
+  myremarks: string;
+  mycontents: string;
+  myprice: number;
+  mytags: string;
+  myimages: any;
 }

@@ -11,7 +11,7 @@ export default function MyformUI(props) {
   });
 
   return (
-    <form onSubmit={handleSubmit(props.onClickLogin)}>
+    <form onSubmit={handleSubmit(props.onClickSubmit)}>
       상품명 : <Input01 type="text" register={register("myname")} />
       <div>{formState.errors.myEmail?.message}</div>
       한줄요약 : <Input01 type="text" register={register("myremarks")} />
@@ -30,7 +30,7 @@ export default function MyformUI(props) {
       <div>{formState.errors.myremarks?.message}</div>
       사진 : <Input01 type="text" register={register("myimages")} />
       <div>{formState.errors.myimages?.message}</div>
-      <Button01 type="submit" name="로그인하기" isValid={formState.isValid} />
+      <Button01 type="submit" name="등록하기" isValid={formState.isValid} />
     </form>
   );
 }

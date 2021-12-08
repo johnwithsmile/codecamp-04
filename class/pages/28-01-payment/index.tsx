@@ -24,6 +24,8 @@ export default function PaymentPage() {
           // 결제 성공시
           console.log(rsp);
           // createPointTransactionOfLoading 뮤테이션 실행하기 , 인자는 ImpUid
+          // 결제 날짜, 결제된 시, 취소된 시간, 백엔드에서 만들거나(요청을 받았을 때 new Date()) 프론트에서도 만들 수 있음 new Date()로 mutation에 보내기
+          // 백엔드가 추천인데
         } else {
           // 결제 실패 시
         }

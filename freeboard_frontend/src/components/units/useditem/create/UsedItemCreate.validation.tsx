@@ -7,7 +7,7 @@ export const schema = yup.object().shape({
 
   mycontents: yup.string().required("상품설명을 입력해주세요"),
 
-  myprice: yup.string().required("상품가격을 입력해주세요"),
+  myprice: yup.number().required("상품가격을 입력해주세요"),
 
   mytags: yup.string().required("태그를 입력해주세요"),
 });

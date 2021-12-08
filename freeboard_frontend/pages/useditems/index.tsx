@@ -1,1 +1,5 @@
-// 아이템 리스트
+import UsedItemList from "../../src/components/units/useditem/list/UsedItemList.container";
+
+export default function UsedItemListPage() {
+  return <UsedItemList />;
+}
