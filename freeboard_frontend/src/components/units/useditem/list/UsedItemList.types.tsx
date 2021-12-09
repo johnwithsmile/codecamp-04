@@ -2,21 +2,16 @@ import { ApolloQueryResult } from "@apollo/client";
 import { Dispatch, MouseEvent, SetStateAction } from "react";
 import {
   IQuery,
-  IQueryFetchBoardsArgs,
-  IQueryFetchBoardsCountArgs,
+  IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/types";
 
-export interface IBoardListUIProps {
-  data?: Pick<IQuery, "fetchBoards">;
-  onClickMoveToBoardNew: () => void;
-  onClickMoveToBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
+export interface IUsedItemListUIProps {
+  data?: Pick<IQuery, "fetchUseditem">;
+  onClickMoveToUsedItemNew: () => void;
+  onClickMoveToUsedItemDetail: (event: MouseEvent<HTMLDivElement>) => void;
   refetch: (
-    variables: Partial<IQueryFetchBoardsArgs>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
-  refetchBoardsCount: (
-    variables: Partial<IQueryFetchBoardsCountArgs>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoardsCount">>>;
-  count?: number;
+    variables: Partial<IQueryFetchUseditemArgs>
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchUseditem">>>;
   startPage: number;
   setStartPage: Dispatch<SetStateAction<number>>;
   keyword: string;
@@ -25,4 +20,17 @@ export interface IBoardListUIProps {
 
 export interface ITextTokenProps {
   isMatched: boolean;
+}
+
+export interface FetchMoreOptions<
+  TData = any,
+  TVariables = OperationVariables
+> {
+  updateQuery?: (
+    previousQueryResult: TData,
+    options: {
+      fetchMoreResult?: TData;
+      variables?: TVariables;
+    }
+  ) => TData;
 }

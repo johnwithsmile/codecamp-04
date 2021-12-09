@@ -1,32 +1,13 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_USED_ITEM = gql`
-  query fetchUseditem($useditemId: ID!) {
-    fetchUseditem(useditemId: $useditemId) {
+export const FETCH_USED_ITEMS = gql`
+  query fetchUseditems($page: Int, $search: String, $isSoldOut: Boolean) {
+    fetchUseditems(page: $page, search: $search, isSoldout: $isSoldOut) {
       _id
       name
-      remarks
       contents
+      remarks
       price
-      tags
-      pickedCount
-      useditemAddress {
-        _id
-        zipcode
-        address
-        addressDetail
-      }
-      buyer {
-        name
-      }
-      seller {
-        name
-      }
-      soldAt
-      createdAt
-      updatedAt
-      deletedAt
-
       images
     }
   }

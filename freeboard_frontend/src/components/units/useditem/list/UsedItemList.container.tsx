@@ -1,21 +1,42 @@
-import BoardListUI from "./UsedItemList.presenter";
+import UsedItemListUI from "./UsedItemList.presenter";
 import { useQuery } from "@apollo/client";
-import { FETCH_USED_ITEM } from "./UsedItemList.queries";
+import { FETCH_USED_ITEMS } from "./UsedItemList.queries";
 import { useRouter } from "next/router";
 import { MouseEvent, useState } from "react";
 import {
   IQuery,
-  IQueryFetchUseditemArgs,
+  IQueryFetchUseditemsArgs,
 } from "../../../../commons/types/generated/types";
 
 export default function UsedItemList() {
   const router = useRouter();
-  const [startPage, setStartPage] = useState(1);
   const [keyword, setKeyword] = useState("");
-  const { data, refetch } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
-    IQueryFetchUseditemArgs
-  >(FETCH_USED_ITEM, { variables: { page: startPage } });
+    IQueryFetchUseditemsArgs
+  >(FETCH_USED_ITEMS);
+
+  function onLoadMore() {
+    if (!data) return;
+
+    fetchMore({
+      variables: { page: Math.ceil(data?.fetchUseditems.length / 10) + 1 },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        // console.log(fetchMoreResult?.fetchBoards);
+        // console.log(prev.fetchBoards);
+        if (!fetchMoreResult?.fetchUseditems)
+          return {
+            fetchUseditems: [...prev.fetchUseditems],
+          };
+        return {
+          fetchUseditems: [
+            ...prev.fetchUseditems,
+            ...fetchMoreResult?.fetchUseditems,
+          ],
+        };
+      },
+    });
+  }
 
   function onClickMoveToUsedItemNew() {
     router.push("/useditems/new");
@@ -31,15 +52,14 @@ export default function UsedItemList() {
   }
 
   return (
-    <BoardListUI
+    <UsedItemListUI
       data={data}
       onClickMoveToUsedItemNew={onClickMoveToUsedItemNew}
       onClickMoveToUsedItemDetail={onClickMoveToUsedItemDetail}
-      refetch={refetch}
-      startPage={startPage}
-      setStartPage={setStartPage}
+      // refetch={refetch}
       keyword={keyword}
       onChangeKeyword={onChangeKeyword}
+      onLoadMore={onLoadMore}
     />
   );
 }
