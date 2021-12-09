@@ -61,7 +61,7 @@ function BoardListUI(props: IBoardListUIProps) {
         />
         <Button onClick={props.onClickMoveToBoardNew}>
           <PencilIcon src="/images/board/list/write.png" />
-          게시물 등록하기
+          상품 등록하기
         </Button>
       </Footer>
     </Wrapper>
