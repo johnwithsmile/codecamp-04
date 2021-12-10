@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   ApolloLink,
 } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 import { Global } from "@emotion/react";
 import "antd/dist/antd.css";
 import { AppProps } from "next/dist/shared/lib/router/router";
@@ -19,6 +20,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 
 interface IGlobalContext {
   accessToken?: String;
@@ -41,15 +43,35 @@ function MyApp({ Component, pageProps }: AppProps) {
     setUserInfo: setMyUserInfo,
   };
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) setMyAccessToken(accessToken);
+    // const accessToken = localStorage.getItem("accessToken");
+    // if (accessToken) setMyAccessToken(accessToken);
+    if (localStorage.getItem("refreshToken")) getAccessToken(setMyAccessToken);
   }, []);
   const uploadLink = createUploadLink({
-    uri: "http://backend04.codebootcamp.co.kr/graphql",
+    uri: "https://backend04.codebootcamp.co.kr/graphql",
     headers: { authorization: `Bearer ${myAcessToken}` },
+    credentials: "include",
+  });
+
+  const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+    if (graphQLErrors) {
+      for (const err of graphQLErrors) {
+        // 1. 토큰만료 에러를 캐치
+        if (err.extensions?.code === "UNAUTHENTICATED") {
+          // 3. 기존에 실패한 요청 다시 재요청하기
+          operation.setContext({
+            headers: {
+              ...operation.getContext().headers,
+              authorization: `Bearer ${getAccessToken(setMyAccessToken)}`, // 2. refreshToken으로 accessToken 재발급 받기 => restoreAccessToken
+            },
+          });
+          return forward(operation);
+        }
+      }
+    }
   });
   const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
+    link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
     cache: new InMemoryCache(),
   });
   return (
