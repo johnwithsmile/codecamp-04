@@ -59,6 +59,9 @@ export default function HeaderUI(props: IProps) {
           <InnerButton onClick={onClickLogout} id="/registration/signout">
             로그아웃
           </InnerButton>
+          <InnerButton id="/basket" onClick={props.onClickMove}>
+            장바구니
+          </InnerButton>
         </div>
       </InnerWrapper>
     </Wrapper>

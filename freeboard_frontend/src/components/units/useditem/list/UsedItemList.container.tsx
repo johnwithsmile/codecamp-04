@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { MouseEvent, useState } from "react";
 import {
   IQuery,
+  IUseditem,
   IQueryFetchUseditemsArgs,
 } from "../../../../commons/types/generated/types";
 
@@ -38,6 +39,24 @@ export default function UsedItemList() {
     });
   }
 
+  const onclickBasket = (el: IUseditem) => () => {
+    console.log(el);
+    // 배열로 담아주자
+    const baskets = JSON.parse(localStorage.getItem("basket") || "[]") || [];
+    // 이미 담았는지 체크
+    let isExists = false;
+    baskets.forEach((basketEl: IUseditem) => {
+      if (el._id === basketEl._id) isExists = true;
+    });
+    if (isExists) {
+      alert("이미 장바구니에 담으셨습니다.");
+      return;
+    }
+    const { __typename, ...newEL } = el;
+    baskets.push(newEL);
+    localStorage.setItem("basket", JSON.stringify(baskets));
+  };
+
   function onClickMoveToUsedItemNew() {
     router.push("/useditems/new");
   }
@@ -60,6 +79,7 @@ export default function UsedItemList() {
       keyword={keyword}
       onChangeKeyword={onChangeKeyword}
       onLoadMore={onLoadMore}
+      onclickBasket={onclickBasket}
     />
   );
 }
