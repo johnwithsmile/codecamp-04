@@ -1,4 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import router from "next/router";
 import { IQuery } from "../../../../commons/types/generated/types";
 import {
   InnerButton,
@@ -17,19 +18,33 @@ const FETCH_USER_LOGGED_IN = gql`
   }
 `;
 
+const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
+
 interface IProps {
   onClickMove: () => void;
 }
 
 export default function HeaderUI(props: IProps) {
+  const [logoutUser] = useMutation(LOGOUT_USER);
+
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+
+  async function onClickLogout() {
+    await logoutUser();
+    localStorage.removeItem("refreshToken");
+    router.reload();
+  }
   return (
     <Wrapper>
       <InnerWrapper>
         <InnerLogo id="/boards" onClick={props.onClickMove}>
           {" "}
-          🤝 Pawinhand
+          ☕️ I Love Coffee
         </InnerLogo>
         <div>
           <InnerButton id="/mypage">
@@ -40,6 +55,9 @@ export default function HeaderUI(props: IProps) {
           </InnerButton>
           <InnerButton id="/registration/signup" onClick={props.onClickMove}>
             회원가입
+          </InnerButton>
+          <InnerButton onClick={onClickLogout} id="/registration/signout">
+            로그아웃
           </InnerButton>
         </div>
       </InnerWrapper>

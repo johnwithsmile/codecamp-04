@@ -16,14 +16,15 @@ import {
 // import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
 import { IUsedItemListUIProps } from "./UsedItemList.types";
 import InfiniteScroll from "react-infinite-scroller";
+import { v4 as uuidv4 } from "uuid";
 
 export default function UsedItemListUI(props: IUsedItemListUIProps) {
   return (
     <Wrapper>
       {/* <Searchbars01
-        refetch={props.refetch}
-        refetchBoardsCount={props.refetchBoardsCount}
-        onChangeKeyword={props.onChangeKeyword}
+      refetch={props.refetch}
+      refetchBoardsCount={props.refetchBoardsCount}
+      onChangeKeyword={props.onChangeKeyword}
       /> */}
       <TableTop />
       <Row>
@@ -39,13 +40,14 @@ export default function UsedItemListUI(props: IUsedItemListUIProps) {
           hasMore={true}
           useWindow={false}
         >
+          <div>상품목록</div>
           {props.data?.fetchUseditems.map((el) => (
-            <div key={el._id}>
-              <span>{el.name}</span>
-              <span>{el.remarks}</span>
-              <span>{el.contents}</span>
-              <span>{el.price}</span>
-              <span>{el.images}</span>
+            <div key={uuidv4}>
+              <span onClick={props.onClickMoveToUsedItemDetail} id={el._id}>
+                상품명: {el.name}
+              </span>
+              <span>가격: {el.price}</span>
+              <span>한줄요약 : {el.remarks}</span>
             </div>
           ))}
         </InfiniteScroll>
