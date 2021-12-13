@@ -1,5 +1,8 @@
+import { withAuth } from "../../src/components/commons/hocs/withAuth";
 import UsedItemList from "../../src/components/units/useditem/list/UsedItemList.container";
 
-export default function UsedItemListPage() {
+const UsedItemListPage = () => {
   return <UsedItemList />;
-}
+};
+
+export default withAuth(UsedItemListPage);

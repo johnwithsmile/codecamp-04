@@ -22,7 +22,7 @@ export default function LoginPage() {
   const [myEmail, setMyEmail] = useState("");
   const [myPassword, setMyPassword] = useState("");
   const [loginUser] = useMutation<
-    Pick<IMutation, "loginUserExample">,
+    Pick<IMutation, "loginUser">,
     IMutationLoginUserExampleArgs
   >(LOGIN_USER);
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
     //   result.data?.loginUserExample.accessToken || ""
     // );
     localStorage.setItem("refreshToken", "true");
-    setAccessToken?.(result.data?.loginUserExample.accessToken || ""); // 여기서 setAccesToken 필요! (글로벌 스테이트에...)
+    setAccessToken?.(result.data?.loginUser.accessToken || ""); // 여기서 setAccesToken 필요! (글로벌 스테이트에...)
 
     // 로그인 성공된 페이지로 이동시키기!!
     router.push("/30-02-login-success");

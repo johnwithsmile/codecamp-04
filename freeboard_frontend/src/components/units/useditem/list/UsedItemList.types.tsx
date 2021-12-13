@@ -6,6 +6,7 @@ import {
 } from "../../../../commons/types/generated/types";
 
 export interface IUsedItemListUIProps {
+  onLoadMore: (page: number) => void;
   data?: Pick<IQuery, "fetchUseditem">;
   onClickMoveToUsedItemNew: () => void;
   onClickMoveToUsedItemDetail: (event: MouseEvent<HTMLDivElement>) => void;

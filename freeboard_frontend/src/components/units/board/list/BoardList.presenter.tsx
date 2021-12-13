@@ -1,5 +1,4 @@
 import { getDate } from "../../../../commons/libraries/utils";
-import { withAuth } from "../../../commons/hocs/withAuth";
 import {
   Wrapper,
   TableTop,
@@ -19,7 +18,7 @@ import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container"
 import { v4 as uuidv4 } from "uuid";
 import { IBoardListUIProps } from "./BoardList.types";
 
-function BoardListUI(props: IBoardListUIProps) {
+export default function BoardListUI(props: IBoardListUIProps) {
   return (
     <Wrapper>
       <Searchbars01
@@ -67,5 +66,3 @@ function BoardListUI(props: IBoardListUIProps) {
     </Wrapper>
   );
 }
-
-export default withAuth(BoardListUI);

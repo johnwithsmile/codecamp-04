@@ -1,11 +1,10 @@
 import { ChangeEvent, useContext, useState } from "react";
-import { GlobalContext } from "../../../../../pages/_app";
-
 import { gql, useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../../../commons/types/generated/types";
+import { GlobalContext } from "../../../../../pages/_app";
 
 import { useRouter } from "next/router";
 
@@ -42,11 +41,12 @@ export default function SigninWritePage() {
         password: myPassword,
       },
     });
-    localStorage.setItem(
-      "myAccessToken",
-      result.data?.loginUser.accessToken || ""
-    );
-    setAccessToken(result.data?.loginUser.accessToken);
+    // localStorage.setItem(
+    //   "myAccessToken",
+    //   result.data?.loginUser.accessToken || ""
+    // );
+    localStorage.setItem("refreshToken", "true");
+    setAccessToken?.(result.data?.loginUser.accessToken || ""); // 여기서 setAccesToken 필요! (글로벌 스테이트에...)
     router.push("/boards");
     alert("로그인이 완료되었습니다 ");
   }

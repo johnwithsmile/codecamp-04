@@ -1,12 +1,19 @@
-import { useRouter } from "next/router"
-export function useMoveToPage(){
-    const router = useRouter();
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-    const moveToPage = (page) => () =>{
-        router.push(page);
+type IPage = "/boards" | "/useditems" | "/mypage";
+
+export function useMoveToPage() {
+  const router = useRouter();
+  const [visitedPage, setVisitedPage] = useState("/");
+
+  const moveToPage = (page: IPage) => () => {
+    setVisitedPage(page);
+    router.push(page);
   };
 
-    return(
-        moveToPage
-    )
+  return {
+    moveToPage,
+    visitedPage,
+  };
 }

@@ -1,5 +1,4 @@
 import { getDate } from "../../../../commons/libraries/utils";
-import { withAuth } from "../../../commons/hocs/withAuth";
 import {
   Wrapper,
   TableTop,
@@ -15,10 +14,10 @@ import {
   TextToken,
 } from "./UsedItemList.styles";
 // import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
-import { IUsedItemListUIProps, FetchMoreOptions } from "./UsedItemList.types";
+import { IUsedItemListUIProps } from "./UsedItemList.types";
 import InfiniteScroll from "react-infinite-scroller";
 
-function UsedItemListUI(props: IUsedItemListUIProps) {
+export default function UsedItemListUI(props: IUsedItemListUIProps) {
   return (
     <Wrapper>
       {/* <Searchbars01
@@ -61,5 +60,3 @@ function UsedItemListUI(props: IUsedItemListUIProps) {
     </Wrapper>
   );
 }
-
-export default withAuth(UsedItemListUI);
