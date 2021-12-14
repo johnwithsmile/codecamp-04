@@ -20,7 +20,7 @@ export default function ImageUploadPage() {
         file: myFile,
       },
     });
-    console.log(result.data.uploadFile.url);
+    console.log(result.data?.uploadFile.url);
   }
   return <input type="file" onChange={onChangeFile} />;
 }
