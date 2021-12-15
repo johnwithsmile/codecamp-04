@@ -1,9 +1,6 @@
-import { useQuery } from "@apollo/client";
 import MyBasketUI from "./Basket.presenter";
 import { useEffect, useState } from "react";
-import { FETCH_USED_ITEMS_IPICKED } from "./Basket.qureries";
 import { IUseditem } from "../../../commons/types/generated/types";
-import router from "next/router";
 export default function MyBasketPage() {
   const [basketItems, setbasketItems] = useState<IUseditem[]>([]);
 

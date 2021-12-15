@@ -1,6 +1,9 @@
 import UsedItemListUI from "./UsedItemList.presenter";
-import { useQuery } from "@apollo/client";
-import { FETCH_USED_ITEMS } from "./UsedItemList.queries";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  FETCH_USED_ITEMS,
+  CREATE_BUYING_AND_SELLING,
+} from "./UsedItemList.queries";
 import { useRouter } from "next/router";
 import { MouseEvent, useState } from "react";
 import {
@@ -16,6 +19,8 @@ export default function UsedItemList() {
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS);
+
+  const [CreatBuyingAndSelling] = useMutation(CREATE_BUYING_AND_SELLING);
 
   function onLoadMore() {
     if (!data) return;
@@ -39,7 +44,7 @@ export default function UsedItemList() {
     });
   }
 
-  const onclickBasket = (el: IUseditem) => () => {
+  const onClickBasket = (el: IUseditem) => () => {
     console.log(el);
     // 배열로 담아주자
     const baskets = JSON.parse(localStorage.getItem("basket") || "[]") || [];
@@ -55,6 +60,18 @@ export default function UsedItemList() {
     const { __typename, ...newEL } = el;
     baskets.push(newEL);
     localStorage.setItem("basket", JSON.stringify(baskets));
+  };
+
+  const onClickPay = (el) => async () => {
+    try {
+      await CreatBuyingAndSelling({
+        variables: { useritemId: el._id },
+      });
+      alert("구매가 완료되었습니다.");
+      router.push("/useditems");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   function onClickMoveToUsedItemNew() {
@@ -79,7 +96,8 @@ export default function UsedItemList() {
       keyword={keyword}
       onChangeKeyword={onChangeKeyword}
       onLoadMore={onLoadMore}
-      onclickBasket={onclickBasket}
+      onClickBasket={onClickBasket}
+      onClickPay={onClickPay}
     />
   );
 }

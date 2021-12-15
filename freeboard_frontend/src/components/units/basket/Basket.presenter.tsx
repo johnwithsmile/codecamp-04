@@ -11,8 +11,10 @@ export default function MyBasketUI(props) {
           <button id={index} onClick={props.onClickDeleteBasket}>
             삭제하기
           </button>
+          <button>결제하기</button>
         </div>
       ))}
     </>
   );
 }
+// router 로 넘기긱

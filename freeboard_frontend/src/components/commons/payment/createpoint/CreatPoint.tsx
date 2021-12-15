@@ -1,20 +1,36 @@
+/* eslint-disable @next/next/no-sync-scripts */
+import { gql, useMutation } from "@apollo/client";
 import Head from "next/head";
+import router from "next/router";
+import { useState } from "react";
 
 declare const window: typeof globalThis & {
   IMP: any;
 };
+const CREATE_POINT = gql`
+  mutation createPointTransactionOfLoading($impUid: ID!) {
+    createPointTransactionOfLoading(impUid: $impUid) {
+      _id
+    }
+  }
+`;
 
-export default function PaymentPage() {
+export default function CreatPoint() {
+  const [creatPoint] = useMutation(CREATE_POINT);
+  const [myAmount, SetMyAmount] = useState("");
+
+  function onChangeMyAmount(event) {
+    SetMyAmount(event.target.value);
+  }
+
   function onClickPayment() {
     const IMP = window.IMP; // 생략 가능
     IMP.init("imp49910675"); // Example: imp00000000
     IMP.request_pay(
       {
         // param
-        pg: "html5_inicis",
-        pay_method: "card",
-        name: "마우스",
-        amount: 100,
+        name: "MarketPoint",
+        amount: Number(myAmount),
         buyer_email: "gildong@gmail.com",
         buyer_name: "홍길동",
         buyer_tel: "010-4242-4242",
@@ -27,6 +43,10 @@ export default function PaymentPage() {
         if (rsp.success) {
           // 결제 성공시
           console.log(rsp);
+          creatPoint({
+            variables: { impUid: rsp.imp_uid },
+          });
+          router.push("/mypages/point");
 
           // 1. createPointTransactionsOfLoading 뮤테이션 실행하기!!(impUid 인자로 넘기기!!)
 
@@ -50,7 +70,7 @@ export default function PaymentPage() {
           src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
         ></script>
       </Head>
-      결제금액: <input type="text" />
+      결제금액: <input onChange={onChangeMyAmount} type="text" />
       <button onClick={onClickPayment}>결제하기</button>
     </>
   );

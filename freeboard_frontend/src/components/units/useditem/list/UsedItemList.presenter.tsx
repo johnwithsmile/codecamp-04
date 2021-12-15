@@ -48,7 +48,8 @@ export default function UsedItemListUI(props: IUsedItemListUIProps) {
               </span>
               <span>가격: {el.price}</span>
               <span>한줄요약 : {el.remarks}</span>
-              <button onClick={props.onclickBasket(el)}>장바구니담기</button>
+              <button onClick={props.onClickBasket(el)}>장바구니담기</button>
+              <button onClick={props.onClickPay(el)}>결제하기 </button>
             </div>
           ))}
         </InfiniteScroll>
