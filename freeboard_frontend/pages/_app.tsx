@@ -12,6 +12,7 @@ import { AppProps } from "next/dist/shared/lib/router/router";
 import { globalStyles } from "../src/commons/styles/globalStyles";
 import Layout from "../src/components/commons/layout";
 import { createUploadLink } from "apollo-upload-client";
+import "antd/dist/antd.css";
 // Import the functions you need from the SDKs you need
 import {
   createContext,

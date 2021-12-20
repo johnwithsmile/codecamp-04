@@ -7,3 +7,19 @@ export const CREATE_USED_ITEM = gql`
     }
   }
 `;
+
+export const UPDATE_USED_ITEM = gql`
+  mutation updateUseditem(
+    $boardId: ID!
+    $password: String
+    $updateBoardInput: UpdateBoardInput!
+  ) {
+    updateUseditem(
+      useditemId: $useditemId
+      password: $password
+      updateUseditemInput: $updateUseditemInput
+    ) {
+      _id
+    }
+  }
+`;

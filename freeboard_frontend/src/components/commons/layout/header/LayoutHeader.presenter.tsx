@@ -37,6 +37,7 @@ export default function HeaderUI(props: IProps) {
   async function onClickLogout() {
     await logoutUser();
     localStorage.removeItem("refreshToken");
+    alert("로그아웃이 완료되었습니다");
     router.reload();
   }
   return (
@@ -56,9 +57,7 @@ export default function HeaderUI(props: IProps) {
           <InnerButton id="/registration/signup" onClick={props.onClickMove}>
             회원가입
           </InnerButton>
-          <InnerButton onClick={onClickLogout} id="/registration/signout">
-            로그아웃
-          </InnerButton>
+          <InnerButton onClick={onClickLogout}>로그아웃</InnerButton>
         </div>
       </InnerWrapper>
     </Wrapper>

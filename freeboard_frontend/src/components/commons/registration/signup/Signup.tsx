@@ -6,13 +6,10 @@ import {
   IMutationLoginUserArgs,
 } from "../../../../commons/types/generated/types";
 
-export const CREATE_USER = gql`
+const CREATE_USER = gql`
   mutation createUser($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput) {
       _id
-      email
-      name
-      createdAt
     }
   }
 `;
@@ -21,7 +18,8 @@ export default function SignupWritePage() {
   const router = useRouter();
   const [myEmail, setmyEmail] = useState("");
   const [myPassword, setmyPassword] = useState("");
-  const [loginUser] = useMutation<
+  const [myName, setmyName] = useState("");
+  const [createUser] = useMutation<
     Pick<IMutation, "loginUser">,
     IMutationLoginUserArgs
   >(CREATE_USER);
@@ -34,32 +32,42 @@ export default function SignupWritePage() {
     setmyPassword(event.target.value);
   }
 
-  async function onClickLogin() {
-    const result = await loginUser({
-      variables: {
-        email: myEmail,
-        password: myPassword,
-      },
-    });
-    localStorage.setItem(
-      "myAccessToken",
-      result.data?.loginUser.accessToken || ""
-    );
-    setAccessToken(result.data?.loginUser.accessToken);
-    router.push("/boards");
-    alert("로그인이 완료되었습니다 ");
+  function onChangeMyname(event: ChangeEvent<HTMLInputElement>) {
+    setmyName(event.target.value);
+  }
+
+  async function onClickSignup() {
+    try {
+      const result = await createUser({
+        variables: {
+          createUserInput: {
+            email: myEmail,
+            password: myPassword,
+            name: myName,
+          },
+        },
+      });
+      alert("회원가입이 완료되었습니다 ");
+      router.push(`/boards`);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (
     <>
-      <div>
-        아이디 : <input type="text" onChange={onChangeMyEmail} />
+      <div> 회원 가입 </div>
+      <div placeholder="이메일을 작성해주세요">
+        이메일 : <input type="text" onChange={onChangeMyEmail} />
       </div>
-      <div>
+      <div placeholder="닉네임을 작성해주세요">
+        닉네임 : <input type="text" onChange={onChangeMyname} />
+      </div>
+      <div placeholder="비밀번호를 작성해주세요">
         비밀번호 : <input type="password" onChange={onChangeMyPassword} />
       </div>
       <div>
-        <button onClick={onClickLogin}>로그인 </button>
+        <button onClick={onClickSignup}>회원가입 </button>
       </div>
     </>
   );
