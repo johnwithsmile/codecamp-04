@@ -23,7 +23,7 @@ export default function MyPageUI(props: IProps) {
       {/* <img src={data?.fetchUserLoggedIn.picture} /> */}
       <img src="/images/avatar.png" />
       <div>{data?.fetchUserLoggedIn.name}</div>
-      <div id="/mypages/point">
+      <div id="/mypages/point" onClick={props.onClickMove}>
         💰 내 포인트 : {data?.fetchUserLoggedIn.userPoint.amount}
       </div>
       <div id="/mypages/basket" onClick={props.onClickMove}>

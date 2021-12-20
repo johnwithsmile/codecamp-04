@@ -63,6 +63,11 @@ export const Footer = styled.div`
   padding-top: 50px;
 `;
 
+export const ImgWrapper = styled.img`
+  width: 300px;
+  height: 300px;
+`;
+
 export const PencilIcon = styled.img``;
 
 export const Button = styled.button`

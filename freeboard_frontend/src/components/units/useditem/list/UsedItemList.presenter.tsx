@@ -12,6 +12,7 @@ import {
   PencilIcon,
   Button,
   TextToken,
+  ImgWrapper,
 } from "./UsedItemList.styles";
 // import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
 import { IUsedItemListUIProps } from "./UsedItemList.types";
@@ -40,7 +41,6 @@ export default function UsedItemListUI(props: IUsedItemListUIProps) {
           hasMore={true}
           useWindow={false}
         >
-          <div>상품목록</div>
           {props.data?.fetchUseditems.map((el) => (
             <div key={uuidv4}>
               <span onClick={props.onClickMoveToUsedItemDetail} id={el._id}>
@@ -48,6 +48,9 @@ export default function UsedItemListUI(props: IUsedItemListUIProps) {
               </span>
               <span>가격: {el.price}</span>
               <span>한줄요약 : {el.remarks}</span>
+              <ImgWrapper
+                src={`https://storage.googleapis.com/${el.images?.[0]}`}
+              />
               <button onClick={props.onClickBasket(el)}>장바구니담기</button>
               <button onClick={props.onClickPay(el)}>결제하기 </button>
             </div>
