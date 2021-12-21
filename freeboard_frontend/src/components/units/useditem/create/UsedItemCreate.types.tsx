@@ -22,7 +22,7 @@ export interface IMyUpdateUseditemInput {
   images?: string[];
 }
 
-export interface IBoardWriteUIProps {
+export interface IUseditemWriteUIProps {
   myWriterError: string;
   myPasswordError: string;
   myTitleError: string;
