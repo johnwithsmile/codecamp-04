@@ -5,13 +5,10 @@ export default function MarketPage(props) {
   return (
     <>
       <Head>
-        <meata property="og:title" content={props.fetchUseditem.name} />
+        <meta property="og:title" content={props.fetchUseditem.name} />
         {/* <meata property="og:url" content="http://johnwithsmile.me" /> */}
-        <meata property="og:image" content={props.fetchUseditem.images[0]} />
-        <meata
-          property="og:description"
-          content={props.fetchUseditem.remarks}
-        />
+        <meta property="og:image" content={props.fetchUseditem.images[0]} />
+        <meta property="og:description" content={props.fetchUseditem.remarks} />
       </Head>
       <div> 안녕하세요! 안녕하세요 상품페이지에요! </div>
     </>
