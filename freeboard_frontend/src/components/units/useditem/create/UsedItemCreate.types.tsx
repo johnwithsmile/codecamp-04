@@ -1,53 +1,40 @@
+export interface IUseditemCreateProps {
+  isActive: boolean;
+}
 import { ChangeEvent, MouseEvent } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
-export interface IBoardWriteProps {
+export interface IProductWriteProps {
   isEdit?: boolean;
   data?: any;
 }
 
-export interface IMyUpdateUseditemInput {
-  name?: string;
-  remarks?: string;
-  contents?: string;
-  price?: number;
-  tags: string[];
-  useditemAddress?: {
-    zipcode?: string;
-    address?: string;
-    addressDetail?: string;
-    lat?: any;
-    lng?: any;
-  };
-  images?: string[];
-}
-
 export interface IUseditemWriteUIProps {
-  myWriterError: string;
-  myPasswordError: string;
-  myTitleError: string;
-  myContentsError: string;
-  onChangeMyWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeMyPassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeMyTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeMyContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeMyYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+  // myWriterError: string;
+  // myPasswordError: string;
+  // myTitleError: string;
+  // myContentsError: string;
+  onChangeMyName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeMyContents: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeMyRemarks: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeMyPrice: (event: ChangeEvent<HTMLInputElement>) => void;
+
   onClickSubmit: () => void;
   onClickUpdate: () => void;
-  onClickAddressSearch: () => void;
-  onCompleteAddressSearch: (data: any) => void;
+  onClickAddressSearch?: () => void;
+  onCompleteAddressSearch?: (data: any) => void;
   onChangeFileUrls: (fileUrls: string, index: number) => void;
-  isActive: boolean;
+  isActive?: boolean;
   isEdit?: boolean;
   isOpen: boolean;
-  data?: Pick<IQuery, "fetchBoard">;
-  zipcode: string;
-  address: string;
-  addressDetail: string;
+  data?: Pick<IQuery, "fetchUseditem">;
+  zipcode?: string;
+  address?: string;
+  myAddress?: string;
+  addressDetail?: string;
   fileUrls: string[];
-}
-
-export interface ISubmitButtonProps {
-  isActive: boolean;
+  handleChange: (value: string) => void;
+  onToggleModal: () => void;
+  handleComplete: (data: any) => void;
 }
